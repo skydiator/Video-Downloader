@@ -37,7 +37,8 @@ class ChaseYouku :
 		return result
 
 	def __getVideoID(self, link):
-		result = re.findall(r"id_(.*?==)", link)
+		#result = re.findall(r"id_(.*?==)", link)
+		result = re.findall(r"id_(.*)\.html", link)
 		if len(result) > 0 :
 			videoID = result[0]
 		else :
@@ -58,7 +59,7 @@ class ChaseYouku :
 		pageHeader, pageBody = self.Tools.getPage(self.infoUrl + videoID, ['Referer:http://c-h5.youku.com/', self.tempCookie])
 
 		return pageBody
-			
+
 	def __getVideoFileUrl (self, videoInfo) :
 		videoInfo = json.JSONDecoder().decode(videoInfo)
 		if 'security' in videoInfo['data']:
@@ -93,7 +94,7 @@ class ChaseYouku :
 				result.append(x)
 		return result
 
-	def __yk_e (self, a, c) : 
+	def __yk_e (self, a, c) :
 		f = 0
 		i = 0
 		h = 0
@@ -121,8 +122,8 @@ class ChaseYouku :
 
 	def __charCodeAt (self, data, index) :
 		charCode = {}
-		md5 = hashlib.md5() 
-		md5.update(data) 
+		md5 = hashlib.md5()
+		md5.update(data)
 		key = md5.hexdigest()
 
 		return ord(data[index])
